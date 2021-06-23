@@ -33,12 +33,14 @@ st.header('Header')
 def predict_tumor(features):
     model = pickle.load(open('svc_fin.pkl', 'rb'))
     trainset = pickle.load(open('training_data.pkl', 'rb'))
+    scaler = StandardScaler()
     
-    newdata = pd.Series(features, index=trainset.columns)
-    trainset = trainset.append(newdata, ignore_index=True)
+    #newdata = pd.Series(features, index=trainset.columns)
+    #trainset = trainset.append(newdata, ignore_index=True)
+    newdata = pd.DataFrame([features], columns=trainset.columns)
+    trainset = scaler.fit_transform(trainset)
 
-    final_features = pd.DataFrame(StandardScaler().fit_transform(trainset), columns=trainset.columns)
-    final_features = final_features.iloc[-1:]
+    final_features = scaler.transform(newdata)
     prediction = model.predict(final_features)
 
     output = prediction[0]
