@@ -62,5 +62,5 @@ def app():
 
     if st.button('Predict'):
         predictions = predict_tumor(features)
-        st.write(predictions)
+        st.subheader(predictions)
 

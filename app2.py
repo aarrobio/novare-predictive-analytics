@@ -28,7 +28,7 @@ def app():
     def measure_tumor():
         testset = pickle.load(open('testing_data.pkl', 'rb'))
         randsamp = testset.sample(n=1,replace=True)
-        return randsamp.values.tolist()[0]
+        return randsamp.values.tolist()[0], randsamp.index[0]
 
     col1, col2, col3, col4 = st.beta_columns((1,2,3,1))
 
@@ -42,26 +42,27 @@ def app():
     features = []
     measurements = measure_tumor()
 
-    meanradius = measurements[0]
-    meantexture = measurements[1]
-    meanperimeter = measurements[2]
-    meanarea = measurements[3]
-    meancompactness = measurements[4]
-    meanconcavity = measurements[5]
-    meanconcavepoints = measurements[6]
-    radiuserror = measurements[7]
-    perimetererror = measurements[8]
-    areaerror = measurements[9]
-    concavepointserror = measurements[10]
-    worstradius = measurements[11]
-    worsttexture = measurements[12]
-    worstperimeter = measurements[13]
-    worstarea = measurements[14]
-    worstsmoothness = measurements[15]
-    worstcompactness = measurements[16]
-    worstconcavity = measurements[17]
-    worstconcavepoints = measurements[18]
-    worstsymmetry = measurements[19]
+    meanradius = measurements[0][0]
+    meantexture = measurements[0][1]
+    meanperimeter = measurements[0][2]
+    meanarea = measurements[0][3]
+    meancompactness = measurements[0][4]
+    meanconcavity = measurements[0][5]
+    meanconcavepoints = measurements[0][6]
+    radiuserror = measurements[0][7]
+    perimetererror = measurements[0][8]
+    areaerror = measurements[0][9]
+    concavepointserror = measurements[0][10]
+    worstradius = measurements[0][11]
+    worsttexture = measurements[0][12]
+    worstperimeter = measurements[0][13]
+    worstarea = measurements[0][14]
+    worstsmoothness = measurements[0][15]
+    worstcompactness = measurements[0][16]
+    worstconcavity = measurements[0][17]
+    worstconcavepoints = measurements[0][18]
+    worstsymmetry = measurements[0][19]
+    measureindex = measurements[1]
 
     mp = st.button('Measure & Predict')
 
@@ -93,4 +94,6 @@ def app():
 
     if mp:
         predictions = predict_tumor(features)
-        st.write(predictions)
+        st.subheader(predictions)
+        st.write('Measurement index:',measureindex)
+
