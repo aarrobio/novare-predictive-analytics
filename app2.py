@@ -26,8 +26,8 @@ def app():
         return result
 
     def measure_tumor():
-        trainset = pickle.load(open('training_data.pkl', 'rb'))
-        randsamp = trainset.sample(n=1,replace=True)
+        testset = pickle.load(open('testing_data.pkl', 'rb'))
+        randsamp = testset.sample(n=1,replace=True)
         return randsamp.values.tolist()[0]
 
     col1, col2, col3, col4 = st.beta_columns((1,2,3,1))
